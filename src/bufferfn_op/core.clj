@@ -1,6 +1,7 @@
 (ns bufferfn-op.core
   (:gen-class)
-  (:use cascalog.api))
+  (:use cascalog.api)
+  (:require [cascalog.logic.fn :as s]))
 
 (def records
   [{:url "google.com" :type {:a "site" :random "01"}}
@@ -27,7 +28,7 @@
                  (group-by op))))
 
 (def make-bucket-url
-  (make-bucket #(-> % (get :url) parse-extension)))
+  (make-bucket (s/fn [x] (-> (first x) (get :url) parse-extension))))
 
 (defn cascalog-make-bucket-run []
    (?<- (stdout)
@@ -37,7 +38,7 @@
 
 (defbufferfn bucket-url [items]
   (->> items
-       (group-by #(-> % (get :url) parse-extension))))
+       (group-by #(-> (first %) (get :url) parse-extension))))
 
 (defn cascalog-bucket-url-run []
   (?<- (stdout)
@@ -46,7 +47,7 @@
        (bucket-url ?records :> ?id ?group)))
 
 (defn clojure-run []
-  (bucket-url records))
+  (bucket-url [records]))
 
 (defn -main
   []
@@ -63,4 +64,4 @@
   (println "### Press enter to do cascalog run using generic make-bucket function...")
   (read-line)
   (cascalog-make-bucket-run)
-  (println "# This doesn't work see 'Unable to resolve symbol: op in this context' error"))
+  (println "# Now this works!"))
