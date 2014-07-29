@@ -1,36 +1,11 @@
 # bufferfn-op
 
-FIXME: description
+git clone git@github.com:stanfe/bufferfn-op.git
+cd bufferfn-op
+lein run
 
-## Installation
-
-Download from http://example.com/FIXME.
-
-## Usage
-
-FIXME: explanation
-
-    $ java -jar bufferfn-op-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2014 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+# Follow prompts and press enter to go through the 3 test cases
+# First test case: cascalog using explicit bucket-url WORKS
+# Second test case: clojure using generic make-bucket WORKS
+# Third test case: cascalog using generic make-bucket DOES NOT WORK
+# see "Caused by: java.lang.RuntimeException: Unable to resolve symbol: op in this context"
